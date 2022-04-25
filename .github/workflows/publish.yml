@@ -6,6 +6,7 @@ on:
     branches:
       - main
     paths:
+      - .github/workflows/publish.yml
       - ./index.js
       - ./package.json
       - ./package-lock.json
