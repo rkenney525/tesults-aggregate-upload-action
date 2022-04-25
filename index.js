@@ -11,8 +11,9 @@ const createTestData = (filename) => {
     console.log("processing test file: " + fullName);
     let rawdata = fs.readFileSync(fullName);
     let testData = JSON.parse(rawdata);
-    let suite = testData.results.file.split('/').slice(-1);
-    let tests = testData.results.tests.concat(testData.results.suites.flatMap( s => s.tests))
+    // TODO support multiple results per file
+    let suite = testData.results[0].file.split('/').slice(-1);
+    let tests = testData.results[0].tests.concat(testData.results[0].suites.flatMap( s => s.tests))
     // TODO support attachments
     return tests.map(test => {
         return {
