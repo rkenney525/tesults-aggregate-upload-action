@@ -4,7 +4,7 @@ name: 'Build and publish app code'
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       - ./index.js
       - ./package.json
