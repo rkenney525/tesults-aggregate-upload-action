@@ -1,0 +1,24 @@
+{
+    "name": "tesults-aggregate-upload-action",
+    "version": "1.0.0",
+    "description": "Aggregate and upload test results data to Tesults",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/rkenney525/tesults-aggregate-upload-action.git"
+    },
+    "keywords": [],
+    "author": "Ryan Kenney",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/rkenney525/tesults-aggregate-upload-action/issues"
+    },
+    "homepage": "https://github.com/rkenney525/tesults-aggregate-upload-action#readme",
+    "dependencies": {
+        "@actions/core": "^1.6.0",
+        "tesults": "^1.1.3"
+    }
+}

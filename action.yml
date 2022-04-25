@@ -1,0 +1,13 @@
+name: 'Tesults Aggregate and Upload Action'
+description: 'Aggregate and upload test results data to Tesults'
+inputs:
+  target_token:
+    description: 'The token associated with the target where test results are to be pushed'
+    required: true
+  test_data_directory:
+    description: 'The root folder containing all relevent test data'
+    required: false
+    default: './'
+runs:
+  using: 'node16'
+  main: 'index.js'
