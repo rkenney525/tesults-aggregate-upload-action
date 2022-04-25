@@ -7,6 +7,7 @@ const token = core.getInput('target_token', { required: true });
 const dataDir = core.getInput('test_data_directory', { required: true });
 
 const createTestData = (filename) => {
+    console.log("processing test file: " + dataDir + filename);
     let rawdata = fs.readFileSync(dataDir + filename);
     let testData = JSON.parse(rawdata);
     let suite = testData.results.file.split('/').slice(-1);
