@@ -1,0 +1,31 @@
+---
+name: 'Build and publish app code'
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - ./index.js
+      - ./package.json
+      - ./package-lock.json
+
+jobs:
+  build_and_publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: Build application distributable
+        run: |
+          npm install -g @vercel/ncc
+          npm install
+          ncc build index.js -o dist
+
+      - name: Commit application distributable
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: "[skip-ci] Update application distributable"

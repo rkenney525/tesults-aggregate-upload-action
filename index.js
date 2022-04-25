@@ -7,7 +7,7 @@ const token = core.getInput('target_token', { required: true });
 const dataDir = core.getInput('test_data_directory', { required: true });
 
 const createTestData = (filename) => {
-    let rawdata = fs.readFileSync(filename);
+    let rawdata = fs.readFileSync(dataDir + filename);
     let testData = JSON.parse(rawdata);
     let suite = testData.results.file.split('/').slice(-1);
     let tests = testData.results.tests.concat(testData.results.suites.flatMap( s => s.tests))
