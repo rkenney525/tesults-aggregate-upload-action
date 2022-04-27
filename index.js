@@ -23,7 +23,7 @@ const createTestData = (filename) => {
 
     return testData.results.flatMap(result => {
         const suite = result.file.split('/').slice(-1);
-        const tests = getTests(result.suites);
+        const tests = result.suites.flatMap(getTests);
         // TODO support attachments
         return tests.map(test => {
             return {
