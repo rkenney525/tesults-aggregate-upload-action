@@ -1,6 +1,5 @@
 const core = require('@actions/core');
 const fs = require('fs');
-const path = require("path");
 const { exit } = require('process');
 const tesults = require('tesults');
 
