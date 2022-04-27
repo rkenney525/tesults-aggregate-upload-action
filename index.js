@@ -1,5 +1,6 @@
 const core = require('@actions/core');
 const fs = require('fs');
+const path = require("path");
 const { exit } = require('process');
 const tesults = require('tesults');
 
@@ -27,7 +28,8 @@ const createTestData = (filename) => {
 
         return tests.map(test => {
             const files = fs.readdirSync(`${dataDir}/screenshots/${suite}`)
-                .filter(filename => filename.includes(test.title));
+                .filter(filename => filename.includes(test.fullTitle.replaceAll(' --', '')))
+                .map(path.resolve);
             return {
                 name: test.fullTitle,
                 suite: suite,
