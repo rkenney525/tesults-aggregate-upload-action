@@ -15,8 +15,8 @@ function getTests(suite)  {
 }
 
 const createTestData = (filename) => {
-    const fullName = dataDir + '/' + filename
-    console.log("processing test file: " + fullName);
+    const fullName = `${dataDir}/${filename}`
+    console.log(`processing test file: ${fullName}`);
 
     const rawdata = fs.readFileSync(fullName);
     const testData = JSON.parse(rawdata);
@@ -24,19 +24,24 @@ const createTestData = (filename) => {
     return testData.results.flatMap(result => {
         const suite = result.file.split('/').slice(-1);
         const tests = result.suites.flatMap(getTests);
-        // TODO support attachments
+
         return tests.map(test => {
+            const files = fs.readdirSync(`${dataDir}/screenshots/${suite}`)
+                .filter(filename => filename.includes(test.title));
             return {
                 name: test.fullTitle,
                 suite: suite,
                 duration: test.duration,
                 result: test.pass ? 'pass' : 'fail',
+                files: files,
             }
         });
     });
 }
 
-const cases = fs.readdirSync(dataDir).flatMap(createTestData);
+const cases = fs.readdirSync(dataDir)
+    .filter(filename => filename.endsWith('.json'))
+    .flatMap(createTestData);
 
 const data = {
     target: token,
@@ -46,10 +51,10 @@ const data = {
 };
 
 tesults.results(data, function (err, response) {
-    console.log("upload to tesults result: " + response.success);
+    console.log(`upload to tesults result: ${response.success}`);
     
     if (err) {
-        console.log("Tesults response: " + response.message)
+        console.log(`Tesults response: ${response.message}`)
         console.log(err);
     }
 
