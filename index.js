@@ -30,7 +30,7 @@ const createTestData = (filename) => {
             const screenshots = `${dataDir}/screenshots/${suite}`;
             const files = fs.readdirSync(screenshots)
                 .filter(filename => filename.replaceAll(' --', '').includes(test.fullTitle))
-                .map(name => path.resolve(`${screenshots}/${name}`));
+                .map(name => `${screenshots}/${name}`);
 
             return {
                 name: test.fullTitle,
