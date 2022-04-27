@@ -23,7 +23,7 @@ const createTestData = (filename) => {
     const testData = JSON.parse(rawdata);
 
     return testData.results.flatMap(result => {
-        const suite = result.file.split('/').slice(-1);
+        const suite = result.file.split('/').slice(-1)[0];
         const tests = result.suites.flatMap(getTests);
 
         return tests.map(test => {
