@@ -6,28 +6,39 @@ const tesults = require('tesults');
 const token = core.getInput('target_token', { required: true });
 const dataDir = core.getInput('test_data_directory', { required: true });
 
+function getTests(suite)  {
+    if (suite.suites === []) {
+        return suite.tests;
+    } else {
+        return suite.suites.flatMap(getTests).concat(suite.tests);
+    }
+}
+
 const createTestData = (filename) => {
     const fullName = dataDir + '/' + filename
     console.log("processing test file: " + fullName);
-    let rawdata = fs.readFileSync(fullName);
-    let testData = JSON.parse(rawdata);
-    // TODO support multiple results per file
-    let suite = testData.results[0].file.split('/').slice(-1);
-    let tests = testData.results[0].tests.concat(testData.results[0].suites.flatMap( s => s.tests))
-    // TODO support attachments
-    return tests.map(test => {
-        return {
-            name: test.fullTitle,
-            suite: suite,
-            duration: test.duration,
-            result: test.pass ? 'pass' : 'fail',
-        }
+
+    const rawdata = fs.readFileSync(fullName);
+    const testData = JSON.parse(rawdata);
+
+    return testData.results.flatMap(result => {
+        const suite = result.file.split('/').slice(-1);
+        const tests = getTests(result.suites);
+        // TODO support attachments
+        return tests.map(test => {
+            return {
+                name: test.fullTitle,
+                suite: suite,
+                duration: test.duration,
+                result: test.pass ? 'pass' : 'fail',
+            }
+        });
     });
 }
 
-let cases = fs.readdirSync(dataDir).flatMap(createTestData);
+const cases = fs.readdirSync(dataDir).flatMap(createTestData);
 
-let data = {
+const data = {
     target: token,
     results: {
         cases: cases
