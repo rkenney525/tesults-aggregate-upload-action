@@ -34,6 +34,8 @@ const createTestData = (filename) => {
             return {
                 name: test.fullTitle,
                 suite: suite,
+                desc: test.code,
+                reason: test.fail ? test.err.estack : null,
                 duration: test.duration,
                 result: test.pass ? 'pass' : 'fail',
                 files: files,
