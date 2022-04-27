@@ -7,7 +7,7 @@ const token = core.getInput('target_token', { required: true });
 const dataDir = core.getInput('test_data_directory', { required: true });
 
 function getTests(suite)  {
-    if (suite.suites === []) {
+    if (suite.suites == null || suite.suites === []) {
         return suite.tests;
     } else {
         return suite.suites.flatMap(getTests).concat(suite.tests);
