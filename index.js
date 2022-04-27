@@ -1,6 +1,5 @@
 const core = require('@actions/core');
 const fs = require('fs');
-const path = require("path");
 const { exit } = require('process');
 const tesults = require('tesults');
 
@@ -23,13 +22,15 @@ const createTestData = (filename) => {
     const testData = JSON.parse(rawdata);
 
     return testData.results.flatMap(result => {
-        const suite = result.file.split('/').slice(-1);
+        const suite = result.file.split('/').slice(-1)[0];
         const tests = result.suites.flatMap(getTests);
 
         return tests.map(test => {
-            const files = fs.readdirSync(`${dataDir}/screenshots/${suite}`)
+            const screenshots = `${dataDir}/screenshots/${suite}`;
+            const files = fs.readdirSync(screenshots)
                 .filter(filename => filename.replaceAll(' --', '').includes(test.fullTitle))
-                .map(path.resolve);
+                .map(name => `${screenshots}/${name}`);
+
             return {
                 name: test.fullTitle,
                 suite: suite,
@@ -44,6 +45,9 @@ const createTestData = (filename) => {
 const cases = fs.readdirSync(dataDir)
     .filter(filename => filename.endsWith('.json'))
     .flatMap(createTestData);
+
+console.log('Sending the following test case data to tesults');
+console.log(JSON.stringify(cases))
 
 const data = {
     target: token,
