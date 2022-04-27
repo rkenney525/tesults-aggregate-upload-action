@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+      - fix-screenshots
 
 jobs:
   build_and_publish:
