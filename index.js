@@ -4,8 +4,8 @@ const path = require("path");
 const { exit } = require('process');
 const tesults = require('tesults');
 
-const token = "123";//core.getInput('target_token', { required: true });
-const dataDir = "./data";//core.getInput('test_data_directory', { required: true });
+const token = core.getInput('target_token', { required: true });
+const dataDir = core.getInput('test_data_directory', { required: true });
 
 function getTests(suite)  {
     if (suite.suites == null || suite.suites === []) {
