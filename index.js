@@ -47,6 +47,9 @@ const cases = fs.readdirSync(dataDir)
     .filter(filename => filename.endsWith('.json'))
     .flatMap(createTestData);
 
+console.log('Sending the following test case data to tesults');
+console.log(JSON.stringify(cases))
+
 const data = {
     target: token,
     results: {
