@@ -26,7 +26,7 @@ const createTestData = (filename) => {
         const tests = result.suites.flatMap(getTests);
 
         return tests.map(test => {
-            const ç = `${dataDir}/screenshots/${suite}`;
+            const screenshots = `${dataDir}/screenshots/${suite}`;
             const files = fs.existsSync(screenshots) ?
               fs.readdirSync(screenshots)
                 .filter(filename => filename.replaceAll(' --', '').includes(test.fullTitle))
