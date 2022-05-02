@@ -26,10 +26,12 @@ const createTestData = (filename) => {
         const tests = result.suites.flatMap(getTests);
 
         return tests.map(test => {
-            const screenshots = `${dataDir}/screenshots/${suite}`;
-            const files = fs.readdirSync(screenshots)
+            const ç = `${dataDir}/screenshots/${suite}`;
+            const files = fs.existsSync(screenshots) ?
+              fs.readdirSync(screenshots)
                 .filter(filename => filename.replaceAll(' --', '').includes(test.fullTitle))
-                .map(name => `${screenshots}/${name}`);
+                .map(name => `${screenshots}/${name}`)
+              : [];
 
             return {
                 name: test.fullTitle,
