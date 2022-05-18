@@ -102,6 +102,9 @@ const supportedFormats = {
         processor: createJunitTestData,
     },
 };
+console.log(`printing content of dir: ${dataDir}`);
+console.log(fs.readdirSync(dataDir));
+fs.readdirSync(dataDir).forEach(dir => console.log(dir));
 
 const cases = fs.readdirSync(dataDir)
     .filter(dir => supportedFormats[dir] !== undefined)
@@ -110,7 +113,6 @@ const cases = fs.readdirSync(dataDir)
       .map(filename => `${dir}/${filename}`)
       .map(filename => supportedFormats[dir].processor(filename)));
 
-fs.readdirSync(dataDir).forEach(dir => console.log(dir));
 
 console.log('Sending the following test case data to tesults');
 console.log(JSON.stringify(cases))
