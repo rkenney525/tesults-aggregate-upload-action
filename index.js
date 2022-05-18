@@ -110,6 +110,8 @@ const cases = fs.readdirSync(dataDir)
       .map(filename => `${dir}/${filename}`)
       .map(filename => supportedFormats[dir].processor(filename)));
 
+fs.readdirSync(dataDir).forEach(dir => console.log(dir));
+
 console.log('Sending the following test case data to tesults');
 console.log(JSON.stringify(cases))
 
