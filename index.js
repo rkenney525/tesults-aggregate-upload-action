@@ -53,7 +53,10 @@ const createJunitTestData = (filename) => {
     console.log(`processing test file: ${fullName}`);
 
     const rawdata = fs.readFileSync(fullName);
+    console.log("debugging, raw xml: " + rawdata);
     return parseString(rawdata, function(_, data) {
+        console.log("debugging, xml2js result: " + rawdata);
+        console.log("debugging, xml2js stringified: " + JSON.stringify(rawdata));
         const testData = JSON.parse(data);
         return testData.testsuite.testcase.map(testcase => {
             let files = [];
@@ -102,9 +105,6 @@ const supportedFormats = {
         processor: createJunitTestData,
     },
 };
-console.log(`printing content of dir: ${dataDir}`);
-console.log(fs.readdirSync(dataDir));
-fs.readdirSync(dataDir).forEach(dir => console.log(dir));
 
 const cases = fs.readdirSync(dataDir)
     .filter(dir => supportedFormats[dir] !== undefined)
