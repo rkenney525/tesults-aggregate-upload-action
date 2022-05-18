@@ -105,7 +105,7 @@ const supportedFormats = {
 
 const cases = fs.readdirSync(dataDir)
     .filter(dir => supportedFormats[dir] !== undefined)
-    .flatMap(dir => fs.readdirSync(dir)
+    .flatMap(dir => fs.readdirSync(`${dataDir}/${dir}`)
       .filter(filename => filename.endsWith(supportedFormats[dir].ext))
       .map(filename => `${dir}/${filename}`)
       .map(filename => supportedFormats[dir].processor(filename)));
