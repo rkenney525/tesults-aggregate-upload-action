@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+      - multi-format-support
 
 jobs:
   build_and_publish:

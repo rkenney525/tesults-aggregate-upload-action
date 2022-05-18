@@ -19,6 +19,7 @@
     "homepage": "https://github.com/rkenney525/tesults-aggregate-upload-action#readme",
     "dependencies": {
         "@actions/core": "^1.6.0",
-        "tesults": "^1.1.3"
+        "tesults": "^1.1.3",
+        "xml2js": "^0.4.23"
     }
 }
