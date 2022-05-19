@@ -54,12 +54,8 @@ const createJunitTestData = (filename) => {
     console.log(`processing test file: ${fullName}`);
 
     const rawdata = fs.readFileSync(fullName);
-    console.log("debugging, raw xml: " + rawdata);
     return parser.parseString(rawdata, function(_, data) {
-        console.log("debugging, xml2js result: " + data);
-        console.log("debugging, xml2js stringified: " + JSON.stringify(data));
-        const testData = JSON.parse(data);
-        return testData.testsuite.testcase.map(testcase => {
+        return data.testsuite.testcase.map(testcase => {
             let files = [];
             const screenshot = fullName.replace('.xml', '.png');
             if (fs.existsSync(screenshot)) {
