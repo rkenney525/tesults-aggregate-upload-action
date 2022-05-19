@@ -82,10 +82,10 @@ const createJunitTestData = (filename) => {
             }
 
             return {
-                name: testcase.$name,
-                suite: testcase.$classname,
+                name: testcase.$.name,
+                suite: testcase.$.classname,
                 reason: failureReason != "" ? failureReason : null,
-                duration: parseFloat(testcase.$time) * 1000,
+                duration: parseFloat(testcase.$.time) * 1000,
                 result: failureReason != "" ? 'fail' : 'pass',
                 files: files,
             }
