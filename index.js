@@ -54,8 +54,9 @@ const createJunitTestData = (filename) => {
     console.log(`processing test file: ${fullName}`);
 
     const rawdata = fs.readFileSync(fullName);
-    return parser.parseString(rawdata, function(_, data) {
-        return data.testsuite.testcase.map(testcase => {
+    let testData = [];
+    parser.parseString(rawdata, function(_, data) {
+        testData = data.testsuite.testcase.map(testcase => {
             let files = [];
             const screenshot = fullName.replace('.xml', '.png');
             if (fs.existsSync(screenshot)) {
@@ -90,6 +91,7 @@ const createJunitTestData = (filename) => {
             }
         });
     });
+    return testData;
 };
 
 const supportedFormats = {
