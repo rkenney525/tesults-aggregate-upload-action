@@ -110,7 +110,7 @@ const cases = fs.readdirSync(dataDir)
     .flatMap(dir => fs.readdirSync(`${dataDir}/${dir}`)
       .filter(filename => filename.endsWith(supportedFormats[dir].ext))
       .map(filename => `${dir}/${filename}`)
-      .map(filename => supportedFormats[dir].processor(filename)));
+      .flatMap(filename => supportedFormats[dir].processor(filename)));
 
 
 console.log('Sending the following test case data to tesults');
