@@ -2,7 +2,8 @@ const core = require('@actions/core');
 const fs = require('fs');
 const { exit } = require('process');
 const tesults = require('tesults');
-const { parseString } = require('xml2js');
+const xml2js = require('xml2js');
+const parser = new xml2js.Parser();
 
 const token = core.getInput('target_token', { required: true });
 const dataDir = core.getInput('test_data_directory', { required: true });
@@ -54,7 +55,7 @@ const createJunitTestData = (filename) => {
 
     const rawdata = fs.readFileSync(fullName);
     console.log("debugging, raw xml: " + rawdata);
-    return parseString(rawdata, function(_, data) {
+    return parser.parseString(rawdata, function(_, data) {
         console.log("debugging, xml2js result: " + data);
         console.log("debugging, xml2js stringified: " + JSON.stringify(data));
         const testData = JSON.parse(data);
