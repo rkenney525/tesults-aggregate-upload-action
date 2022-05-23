@@ -42,7 +42,7 @@ const createMochawesomeTestData = (filename) => {
                 desc: test.code,
                 reason: test.fail ? test.err.estack : null,
                 duration: test.duration,
-                result: test.pass ? 'pass' : 'fail',
+                result: test.skipped ? 'unknown' : test.pass ? 'pass' : 'fail',
                 files: files,
             }
         });
