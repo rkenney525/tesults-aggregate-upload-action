@@ -32,7 +32,7 @@ const createMochawesomeTestData = (filename) => {
             const screenshots = `${dataDir}/mochawesome/${filename}`;
             const files = fs.existsSync(screenshots) ?
               fs.readdirSync(screenshots)
-                .filter(filename => filename.replaceAll(' --', '').includes(test.fullTitle))
+                .filter(filename => filename.replaceAll(' --', '').replaceAll('/', '').includes(test.fullTitle))
                 .map(name => `${screenshots}/${name}`)
               : [];
 
