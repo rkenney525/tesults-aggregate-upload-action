@@ -29,7 +29,7 @@ const createMochawesomeTestData = (filename) => {
         const tests = result.suites.flatMap(getTests);
 
         return tests.map(test => {
-            const screenshots = `${dataDir}/screenshots/${suite}`;
+            const screenshots = `${dataDir}/mochawesome/${filename}`;
             const files = fs.existsSync(screenshots) ?
               fs.readdirSync(screenshots)
                 .filter(filename => filename.replaceAll(' --', '').includes(test.fullTitle))
