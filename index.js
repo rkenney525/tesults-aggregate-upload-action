@@ -5,8 +5,11 @@ const tesults = require('tesults');
 const xml2js = require('xml2js');
 const parser = new xml2js.Parser();
 
-const token = core.getInput('target_token', { required: true });
-const dataDir = core.getInput('test_data_directory', { required: true });
+//const token = core.getInput('target_token', { required: true });
+//const dataDir = core.getInput('test_data_directory', { required: true });
+
+const token = 'lol';
+const dataDir = '/Users/ryan/external-projects/tesults-aggregate-upload-action/data';
 
 function getTests(suite)  {
     if (suite.suites == null || suite.suites === []) {
@@ -62,23 +65,23 @@ const createJunitTestData = (filename) => {
             if (fs.existsSync(screenshot)) {
                 files.push(screenshot);
             }
-            if (testcase["std-out"] != null && testcase["std-out"].length > 0) {
+            if (testcase["system-out"] != null && testcase["system-out"].length > 0) {
                 const newFilePath = `${fullName}.stdout.log`;
-                fs.writeFileSync(newFilePath, testcase["std-out"][0]);
+                fs.writeFileSync(newFilePath, testcase["system-out"][0]);
                 files.push(newFilePath);
             }
-            if (testcase["std-err"] != null && testcase["std-err"].length > 0) {
+            if (testcase["system-err"] != null && testcase["system-err"].length > 0) {
                 const newFilePath = `${fullName}.stderr.log`;
-                fs.writeFileSync(newFilePath, testcase["std-err"][0]);
+                fs.writeFileSync(newFilePath, testcase["system-err"][0]);
                 files.push(newFilePath);
             }
 
 
             let failureReason = "";
             if (testcase.failure != null && testcase.failure.length > 0) {
-                failureReason = testcase.failure[0].$message;
+                failureReason = testcase.failure[0].$.message;
             } else if (testcase.error != null && testcase.error.length > 0) {
-                failureReason = testcase.error[0].$message;
+                failureReason = testcase.error[0].$.message;
             }
 
             return {
@@ -123,13 +126,13 @@ const data = {
     }
 };
 
-tesults.results(data, function (err, response) {
-    console.log(`upload to tesults result: ${response.success}`);
+// tesults.results(data, function (err, response) {
+//     console.log(`upload to tesults result: ${response.success}`);
     
-    if (err) {
-        console.log(`Tesults response: ${response.message}`)
-        console.log(err);
-    }
+//     if (err) {
+//         console.log(`Tesults response: ${response.message}`)
+//         console.log(err);
+//     }
 
-    exit(response.success ? 0 : 1);
-});
+//     exit(response.success ? 0 : 1);
+// });
