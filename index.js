@@ -5,11 +5,8 @@ const tesults = require('tesults');
 const xml2js = require('xml2js');
 const parser = new xml2js.Parser();
 
-//const token = core.getInput('target_token', { required: true });
-//const dataDir = core.getInput('test_data_directory', { required: true });
-
-const token = 'lol';
-const dataDir = '/Users/ryan/external-projects/tesults-aggregate-upload-action/data';
+const token = core.getInput('target_token', { required: true });
+const dataDir = core.getInput('test_data_directory', { required: true });
 
 function getTests(suite)  {
     if (suite.suites == null || suite.suites === []) {
