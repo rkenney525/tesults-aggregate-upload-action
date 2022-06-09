@@ -123,13 +123,13 @@ const data = {
     }
 };
 
-// tesults.results(data, function (err, response) {
-//     console.log(`upload to tesults result: ${response.success}`);
+tesults.results(data, function (err, response) {
+    console.log(`upload to tesults result: ${response.success}`);
     
-//     if (err) {
-//         console.log(`Tesults response: ${response.message}`)
-//         console.log(err);
-//     }
+    if (err) {
+        console.log(`Tesults response: ${response.message}`)
+        console.log(err);
+    }
 
-//     exit(response.success ? 0 : 1);
-// });
+    exit(response.success ? 0 : 1);
+});
