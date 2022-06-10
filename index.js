@@ -51,7 +51,6 @@ const createMochawesomeTestData = (filename) => {
 
 const createJunitTestData = (filename) => {
     const fullName = `${dataDir}/${filename}`
-    console.log(`processing test file: ${fullName}`);
 
     const rawdata = fs.readFileSync(fullName);
     let testData = [];
@@ -64,13 +63,21 @@ const createJunitTestData = (filename) => {
             }
             if (testcase["system-out"] != null && testcase["system-out"].length > 0) {
                 const newFilePath = `${fullName}.stdout.log`;
-                fs.writeFileSync(newFilePath, testcase["system-out"][0]);
-                files.push(newFilePath);
+                try {
+                    fs.writeFileSync(newFilePath, testcase["system-out"][0]);
+                    files.push(newFilePath);
+                } catch (err) {
+                    console.log(`Error writing file ${newFilePath}, it will not be uploaded. Error: ${err}`);
+                }
             }
             if (testcase["system-err"] != null && testcase["system-err"].length > 0) {
                 const newFilePath = `${fullName}.stderr.log`;
-                fs.writeFileSync(newFilePath, testcase["system-err"][0]);
-                files.push(newFilePath);
+                try {
+                    fs.writeFileSync(newFilePath, testcase["system-err"][0]);
+                    files.push(newFilePath);
+                } catch (err) {
+                    console.log(`Error writing file ${newFilePath}, it will not be uploaded. Error: ${err}`);
+                }
             }
 
 
