@@ -28,7 +28,8 @@ const createMochawesomeTestData = (filename) => {
         const tests = result.suites.flatMap(getTests);
 
         return tests.map(test => {
-            const screenshots = `${dataDir}/mochawesome/screenshots/${filename}`;
+            // NOTE: this will cause issues if there are files with the same name in different subdirs. consider fixing
+            const screenshots = `${dataDir}/mochawesome/screenshots`;
             const files = fs.existsSync(screenshots) ?
               fs.readdirSync(screenshots)
                 .filter(filename => filename.replaceAll(' --', '').includes(test.fullTitle.replaceAll('/', '')))
