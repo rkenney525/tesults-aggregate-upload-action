@@ -19,7 +19,6 @@ function getTests(suite)  {
 // TODO turn these into classes in other files maybe?
 const createMochawesomeTestData = (filename) => {
     const fullName = `${dataDir}/${filename}`
-    console.log(`processing test file: ${fullName}`);
 
     const rawdata = fs.readFileSync(fullName);
     const testData = JSON.parse(rawdata);
@@ -29,7 +28,7 @@ const createMochawesomeTestData = (filename) => {
         const tests = result.suites.flatMap(getTests);
 
         return tests.map(test => {
-            const screenshots = `${dataDir}/mochawesome/${filename}`;
+            const screenshots = `${dataDir}/mochawesome/screenshots/${filename}`;
             const files = fs.existsSync(screenshots) ?
               fs.readdirSync(screenshots)
                 .filter(filename => filename.replaceAll(' --', '').includes(test.fullTitle.replaceAll('/', '')))
